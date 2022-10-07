@@ -24,7 +24,7 @@ import 'package:flutter/material.dart';
 import 'package:fijkplayer/fijkplayer.dart';
 import 'package:fijkplayer_skin/fijkplayer_skin.dart';
 import 'package:fijkplayer_skin/schema.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../l10n/app_localizations.dart';
 
 import 'package:bluecherry_client/providers/server_provider.dart';
 import 'package:bluecherry_client/models/server.dart';
@@ -103,10 +103,7 @@ class _EventsScreenState extends State<EventsScreen> {
                   const SizedBox(height: 8.0),
                   Text(
                     AppLocalizations.of(context).noServersAdded,
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline5
-                        ?.copyWith(fontSize: 16.0),
+                    style: Theme.of(context).textTheme.headline5?.copyWith(fontSize: 16.0),
                   ),
                 ],
               ),
@@ -118,10 +115,7 @@ class _EventsScreenState extends State<EventsScreen> {
                 children: ServersProvider.instance.servers
                     .map(
                       (e) => ExpansionTile(
-                        initiallyExpanded: ServersProvider
-                                .instance.servers.length
-                                .compareTo(1) ==
-                            0,
+                        initiallyExpanded: ServersProvider.instance.servers.length.compareTo(1) == 0,
                         maintainState: true,
                         leading: CircleAvatar(
                           child: Icon(
@@ -153,9 +147,7 @@ class _EventsScreenState extends State<EventsScreen> {
                                         onTap: () {
                                           Navigator.of(context).push(
                                             MaterialPageRoute(
-                                              builder: (context) =>
-                                                  EventPlayerScreen(
-                                                      event: event),
+                                              builder: (context) => EventPlayerScreen(event: event),
                                             ),
                                           );
                                         },
@@ -165,39 +157,27 @@ class _EventsScreenState extends State<EventsScreen> {
                                               .last
                                               .trim()
                                               .split(' ')
-                                              .map((e) => e.isEmpty
-                                                  ? ''
-                                                  : e[0].toUpperCase() +
-                                                      e.substring(1))
+                                              .map((e) => e.isEmpty ? '' : e[0].toUpperCase() + e.substring(1))
                                               .join(' '),
                                         ),
                                         isThreeLine: true,
                                         subtitle: Text(
                                           [
-                                            event.title
-                                                .split('event on')
-                                                .first
-                                                .trim(),
+                                            event.title.split('event on').first.trim(),
                                             DateFormat(
-                                                  SettingsProvider.instance
-                                                      .dateFormat.pattern,
+                                                  SettingsProvider.instance.dateFormat.pattern,
                                                 ).format(event.updated) +
                                                 ' ' +
                                                 DateFormat(
-                                                  SettingsProvider.instance
-                                                      .timeFormat.pattern,
-                                                )
-                                                    .format(event.updated)
-                                                    .toUpperCase(),
+                                                  SettingsProvider.instance.timeFormat.pattern,
+                                                ).format(event.updated).toUpperCase(),
                                           ].join('\n'),
                                           overflow: TextOverflow.ellipsis,
                                         ),
                                         leading: CircleAvatar(
                                           child: Icon(
                                             Icons.warning,
-                                            color: Theme.of(context)
-                                                .iconTheme
-                                                .color,
+                                            color: Theme.of(context).iconTheme.color,
                                           ),
                                           backgroundColor: Colors.transparent,
                                         ),
@@ -210,12 +190,8 @@ class _EventsScreenState extends State<EventsScreen> {
                                       height: 72.0,
                                       child: Center(
                                         child: Text(
-                                          AppLocalizations.of(context)
-                                              .invalidResponse,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline5
-                                              ?.copyWith(fontSize: 16.0),
+                                          AppLocalizations.of(context).invalidResponse,
+                                          style: Theme.of(context).textTheme.headline5?.copyWith(fontSize: 16.0),
                                         ),
                                       ),
                                     )
@@ -224,12 +200,8 @@ class _EventsScreenState extends State<EventsScreen> {
                                       height: 72.0,
                                       child: Center(
                                         child: Text(
-                                          AppLocalizations.of(context)
-                                              .noEventsFound,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline5
-                                              ?.copyWith(fontSize: 16.0),
+                                          AppLocalizations.of(context).noEventsFound,
+                                          style: Theme.of(context).textTheme.headline5?.copyWith(fontSize: 16.0),
                                         ),
                                       ),
                                     ),

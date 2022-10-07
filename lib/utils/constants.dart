@@ -25,10 +25,10 @@ const kAppVersion = '0.0.1';
 const kDefaultPort = 7001;
 
 /// Default username used in Bluecherry DVR server.
-const kDefaultUsername = 'Admin';
+const kDefaultUsername = 'admin';
 
 /// Default password used in Bluecherry DVR server.
-const kDefaultPassword = 'bluecherry';
+const kDefaultPassword = '';
 
 /// Keys used for storing data in cache using `package:hive`.
 

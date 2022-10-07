@@ -18,7 +18,7 @@
  */
 
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../l10n/app_localizations.dart';
 
 import 'package:bluecherry_client/providers/mobile_view_provider.dart';
 import 'package:bluecherry_client/models/device.dart';
@@ -95,8 +95,7 @@ class _DeviceTileSelectorState extends State<DeviceTileSelector> {
                         {
                           final result = await Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (context) =>
-                                  const DeviceSelectorScreen(),
+                              builder: (context) => const DeviceSelectorScreen(),
                             ),
                           );
                           if (result is Device) {
@@ -136,8 +135,7 @@ class _DeviceTileSelectorState extends State<DeviceTileSelector> {
                                 2: Icons.replay_outlined,
                               }[e.key]!),
                               backgroundColor: Colors.transparent,
-                              foregroundColor:
-                                  Theme.of(context).iconTheme.color,
+                              foregroundColor: Theme.of(context).iconTheme.color,
                             ),
                             title: Text(e.value),
                           ),

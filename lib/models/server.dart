@@ -35,6 +35,7 @@ class Server {
   List<Device> devices = [];
   final String? serverUUID;
   final String? cookie;
+  var headerList;
 
   Server(
     this.name,
@@ -43,16 +44,16 @@ class Server {
     this.login,
     this.password,
     this.devices, {
-    this.rtspPort = 7002,
+    this.rtspPort = 554,
     this.serverUUID,
     this.cookie,
     this.savePassword = false,
     this.connectAutomaticallyAtStartup = true,
+    this.headerList,
   });
 
   @override
-  String toString() =>
-      'Server($name, $ip, $port, $rtspPort, $login, $password, $devices, $serverUUID, $cookie)';
+  String toString() => 'Server($name, $ip, $port, $rtspPort, $login, $password, $devices, $serverUUID, $cookie)';
 
   @override
   bool operator ==(dynamic other) {
@@ -65,12 +66,7 @@ class Server {
   }
 
   @override
-  int get hashCode =>
-      ip.hashCode ^
-      port.hashCode ^
-      login.hashCode ^
-      password.hashCode ^
-      rtspPort.hashCode;
+  int get hashCode => ip.hashCode ^ port.hashCode ^ login.hashCode ^ password.hashCode ^ rtspPort.hashCode;
 
   Server copyWith({
     String? name,
@@ -82,6 +78,7 @@ class Server {
     List<Device>? devices,
     String? serverUUID,
     String? cookie,
+    var headerList,
   }) {
     return Server(
       name ?? this.name,
@@ -93,6 +90,7 @@ class Server {
       rtspPort: rtspPort ?? this.rtspPort,
       serverUUID: serverUUID ?? this.serverUUID,
       cookie: cookie ?? this.cookie,
+      headerList: headerList ?? this.headerList,
     );
   }
 
@@ -109,6 +107,7 @@ class Server {
         'devices': !devices ? [] : this.devices.map((e) => e.toJson()).toList(),
         'serverUUID': serverUUID,
         'cookie': cookie,
+        "headerList": headerList,
       };
 
   factory Server.fromJson(Map<String, dynamic> json) => Server(
@@ -121,5 +120,6 @@ class Server {
         rtspPort: json['rtspPort'],
         serverUUID: json['serverUUID'],
         cookie: json['cookie'],
+        headerList: json['headerList'],
       );
 }

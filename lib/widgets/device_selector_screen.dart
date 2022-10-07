@@ -18,7 +18,7 @@
  */
 
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../l10n/app_localizations.dart';
 
 import 'package:bluecherry_client/api/api.dart';
 import 'package:bluecherry_client/providers/server_provider.dart';
@@ -54,10 +54,7 @@ class _DeviceSelectorScreenState extends State<DeviceSelectorScreen> {
                   const SizedBox(height: 8.0),
                   Text(
                     AppLocalizations.of(context).noServersAdded,
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline5
-                        ?.copyWith(fontSize: 16.0),
+                    style: Theme.of(context).textTheme.headline5?.copyWith(fontSize: 16.0),
                   ),
                 ],
               ),
@@ -69,10 +66,8 @@ class _DeviceSelectorScreenState extends State<DeviceSelectorScreen> {
                 itemBuilder: (context, i) {
                   final server = ServersProvider.instance.servers[i];
                   return FutureBuilder(
-                    future: (() async => server.devices.isEmpty
-                        ? API.instance.getDevices(
-                            await API.instance.checkServerCredentials(server))
-                        : true)(),
+                    future:
+                        (() async => server.devices.isEmpty ? API.instance.getDevices(await API.instance.checkServerCredentials(server)) : true)(),
                     builder: (context, snapshot) {
                       return snapshot.hasData
                           ? ListView.builder(
@@ -88,29 +83,18 @@ class _DeviceSelectorScreenState extends State<DeviceSelectorScreen> {
                                         leading: CircleAvatar(
                                           child: const Icon(Icons.camera_alt),
                                           backgroundColor: Colors.transparent,
-                                          foregroundColor:
-                                              Theme.of(context).iconTheme.color,
+                                          foregroundColor: Theme.of(context).iconTheme.color,
                                         ),
                                         title: Text(
-                                          server.devices[index].name
-                                              .split(' ')
-                                              .map((e) =>
-                                                  e[0].toUpperCase() +
-                                                  e.substring(1))
-                                              .join(' '),
+                                          server.devices[index].name.split(' ').map((e) => e[0].toUpperCase() + e.substring(1)).join(' '),
                                         ),
                                         subtitle: Text([
-                                          server.devices[index].status
-                                              ? AppLocalizations.of(context)
-                                                  .online
-                                              : AppLocalizations.of(context)
-                                                  .offline,
+                                          server.devices[index].status ? AppLocalizations.of(context).online : AppLocalizations.of(context).offline,
                                           server.devices[index].uri,
                                           '${server.devices[index].resolutionX}x${server.devices[index].resolutionY}',
                                         ].join(' • ')),
                                         onTap: () {
-                                          Navigator.of(context)
-                                              .pop(server.devices[index]);
+                                          Navigator.of(context).pop(server.devices[index]);
                                         },
                                       );
                                     }(),

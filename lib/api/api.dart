@@ -37,20 +37,35 @@ class API {
   Future<Server> checkServerCredentials(Server server) async {
     try {
       final uri =
-          Uri.https('${server.ip}:${server.port}', '/ajax/loginapp.php');
-      final request = MultipartRequest('POST', uri)
-        ..fields.addAll({
-          'login': server.login,
-          'password': server.password,
-        });
-      final response = await request.send();
-      final body = await response.stream.bytesToString();
+          // Uri.https('${server.ip}:${server.port}', '/ajax/loginapp.php');
+          Uri.http(server.ip, '/users/verify.cgi');
+      String basicAuth = base64.encode(utf8.encode('${server.login}:${server.password}'));
+      // log("getAPICall basicAuth = ${basicAuth.toString()} cam_user:$cam_user, cam_pass:$cam_pass");
+      var headersList = {'Accept': '*/*', 'Authorization': 'Basic $basicAuth'};
+      // url = param != null ? url.replace(queryParameters: param) : url;
+      // log('getNumoAPICall param = $param  param + url=$url');
+      // var req = Request(method, url);
+      // req.headers.addAll(headersList);
+
+      var req = Request('GET', uri);
+      req.headers.addAll(headersList);
+
+      var res = await req.send();
+      var x = res.statusCode;
+      // final request = MultipartRequest('POST', uri)..headers.addAll(headersList);
+      // ..fields.addAll({
+      //   'login': server.login,
+      //   'password': server.password,
+      // });
+      // final response = await request.send();
+      final body = await res.stream.bytesToString();
+      debugPrint("x : $x");
       debugPrint(body.toString());
-      debugPrint(response.headers.toString());
-      final json = jsonDecode(body);
+      debugPrint(res.headers.toString());
+      // final json = jsonDecode(body);
       return server.copyWith(
-        serverUUID: json['server_uuid'],
-        cookie: response.headers['set-cookie'],
+        serverUUID: "cam1", // json['server_uuid'],
+        headerList: headersList, // response.headers['set-cookie'],
       );
     } catch (exception, stacktrace) {
       debugPrint(exception.toString());
@@ -64,28 +79,46 @@ class API {
   /// The found [Device] devices are saved in [Server.devices].
   Future<bool> getDevices(Server server) async {
     try {
-      assert(server.serverUUID != null && server.cookie != null);
-      final response = await get(
-        Uri.https(
-          '${Uri.encodeComponent(server.login)}:${Uri.encodeComponent(server.password)}@${server.ip}:${server.port}',
-          '/devices.php',
-          {
-            'XML': '1',
-          },
-        ),
-        headers: {
-          'Cookie': server.cookie!,
-        },
-      );
-      final parser = Xml2Json();
-      parser.parse(response.body);
+      // assert(server.serverUUID != null && server.cookie != null);
+      assert(server.serverUUID != null);
+      // final response = await get(
+      //   Uri.https(
+      //     '${Uri.encodeComponent(server.login)}:${Uri.encodeComponent(server.password)}@${server.ip}:${server.port}',
+      //     '/devices.php',
+      //     {
+      //       'XML': '1',
+      //     },
+      //   ),
+      //   headers: server.headerList,
+      // );
+      // final parser = Xml2Json();
+      // parser.parse(response.body);
       server.devices.clear();
+
+      // server.devices.addAll(
+      //   jsonDecode(parser.toParker())['devices']['device']
+      //       .map(
+      //         (e) => Device(
+      //           e['device_name'],
+      //           'live/${e['id']}',
+      //           e['status'] == 'OK',
+      //           e['resolutionX'] == null ? null : int.parse(e['resolutionX']),
+      //           e['resolutionX'] == null ? null : int.parse(e['resolutionY']),
+      //           server,
+      //         ),
+      //       )
+      //       .toList()
+      //       .cast<Device>()
+      //     // cause `online` devies to show on top.
+      //     ..sort((a, b) => a.status ? 0 : 1),
+      // );
+      var jsonString = '[{"device_name": "Dev1", "uri": "live1.sdp", "status":"OK","resolutionX": "1280", "resolutionY": "720"}]';
       server.devices.addAll(
-        jsonDecode(parser.toParker())['devices']['device']
+        jsonDecode(jsonString)
             .map(
               (e) => Device(
                 e['device_name'],
-                'live/${e['id']}',
+                e['uri'],
                 e['status'] == 'OK',
                 e['resolutionX'] == null ? null : int.parse(e['resolutionX']),
                 e['resolutionX'] == null ? null : int.parse(e['resolutionY']),
@@ -97,6 +130,7 @@ class API {
           // cause `online` devies to show on top.
           ..sort((a, b) => a.status ? 0 : 1),
       );
+
       return true;
     } catch (exception, stacktrace) {
       debugPrint(exception.toString());
@@ -136,16 +170,10 @@ class API {
           int.parse(e['id']['raw']),
           int.parse(e['category']['term'].split('/').first),
           e['title']['\$t'],
-          e['published'] == null || e['published']['\$t'] == null
-              ? DateTime.now()
-              : DateTime.parse(e['published']['\$t']),
-          e['updated'] == null || e['updated']['\$t'] == null
-              ? DateTime.now()
-              : DateTime.parse(e['updated']['\$t']),
+          e['published'] == null || e['published']['\$t'] == null ? DateTime.now() : DateTime.parse(e['published']['\$t']),
+          e['updated'] == null || e['updated']['\$t'] == null ? DateTime.now() : DateTime.parse(e['updated']['\$t']),
           e['category']['term'],
-          !e.containsKey('content')
-              ? null
-              : int.parse(e['content']['media_id']),
+          !e.containsKey('content') ? null : int.parse(e['content']['media_id']),
           !e.containsKey('content')
               ? null
               : Duration(

@@ -87,6 +87,7 @@ class MobileViewProvider extends ChangeNotifier {
   /// Called by [ensureInitialized].
   Future<void> initialize() async {
     final hive = await Hive.openBox('hive');
+
     if (!hive.containsKey(kHiveMobileView)) {
       await _save();
     } else {
@@ -244,10 +245,7 @@ class MobileViewProvider extends ChangeNotifier {
         .map(
           (key, value) => MapEntry<int, List<Device?>>(
             int.parse(key),
-            value
-                .map((e) => e == null ? null : Device.fromJson(e))
-                .toList()
-                .cast<Device?>(),
+            value.map((e) => e == null ? null : Device.fromJson(e)).toList().cast<Device?>(),
           ),
         )
         .cast<int, List<Device?>>();
@@ -260,11 +258,8 @@ class MobileViewProvider extends ChangeNotifier {
   /// Helper method to create a video player with required configuration for a [Device].
   FijkPlayer getVideoPlayerController(Device device) {
     final player = FijkPlayer()
-      ..setDataSource(
-        device.streamURL,
-        autoPlay: true,
-      )
-      ..setVolume(0.0)
+      ..setDataSource(device.streamURL, autoPlay: true, showCover: true)
+      ..setVolume(7.0)
       ..setSpeed(1.0)
       ..setOption(FijkOption.playerCategory, 'packet-buffering', '0');
     return player;

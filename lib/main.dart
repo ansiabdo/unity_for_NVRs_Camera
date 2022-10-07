@@ -24,7 +24,8 @@ import 'package:provider/provider.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:status_bar_control/status_bar_control.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+// import 'l10n/app_localizations.dart';
+
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'package:bluecherry_client/providers/mobile_view_provider.dart';
@@ -34,6 +35,8 @@ import 'package:bluecherry_client/utils/theme.dart';
 import 'package:bluecherry_client/utils/methods.dart';
 import 'package:bluecherry_client/widgets/home.dart';
 import 'package:bluecherry_client/firebase_messaging_background_handler.dart';
+
+import 'l10n/app_localizations.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
 
@@ -63,9 +66,7 @@ Future<void> main() async {
   );
   StatusBarControl.setStyle(
     getStatusBarStyleFromBrightness(
-      SettingsProvider.instance.themeMode == ThemeMode.light
-          ? Brightness.dark
-          : Brightness.light,
+      SettingsProvider.instance.themeMode == ThemeMode.light ? Brightness.dark : Brightness.light,
     ),
   );
   runApp(const MyApp());
@@ -74,8 +75,7 @@ Future<void> main() async {
 class DevHttpOverrides extends HttpOverrides {
   @override
   HttpClient createHttpClient(SecurityContext? context) {
-    return super.createHttpClient(context)
-      ..badCertificateCallback = (cert, host, port) => true;
+    return super.createHttpClient(context)..badCertificateCallback = (cert, host, port) => true;
   }
 }
 

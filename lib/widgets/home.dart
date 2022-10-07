@@ -20,7 +20,7 @@
 import 'package:flutter/material.dart';
 import 'package:animations/animations.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../l10n/app_localizations.dart';
 
 import 'package:bluecherry_client/widgets/device_grid.dart';
 import 'package:bluecherry_client/widgets/events_screen.dart';
@@ -139,26 +139,21 @@ class _MobileHomeState extends State<MobileHome> {
                       backgroundColor: Colors.transparent,
                       child: Icon(
                         e,
-                        color: index == tab
-                            ? Theme.of(context).primaryColor
-                            : Theme.of(context).iconTheme.color,
+                        color: index == tab ? Theme.of(context).primaryColor : Theme.of(context).iconTheme.color,
                       ),
                     ),
                     title: Text(
                       {
                         Icons.window: AppLocalizations.of(context).screens,
                         Icons.camera: AppLocalizations.of(context).directCamera,
-                        Icons.description:
-                            AppLocalizations.of(context).eventBrowser,
+                        Icons.description: AppLocalizations.of(context).eventBrowser,
                         Icons.dns: AppLocalizations.of(context).addServer,
                         Icons.settings: AppLocalizations.of(context).settings,
                       }[e]!,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                            color: index == tab
-                                ? Theme.of(context).primaryColor
-                                : null,
+                            color: index == tab ? Theme.of(context).primaryColor : null,
                           ),
                     ),
                   ),
@@ -204,8 +199,7 @@ class _MobileHomeState extends State<MobileHome> {
                                 DeviceOrientation.portraitDown,
                               ],
                             );
-                          } else if (![0, 3].contains(index) &&
-                              [0, 3].contains(tab)) {
+                          } else if (![0, 3].contains(index) && [0, 3].contains(tab)) {
                             debugPrint(index.toString());
                             await StatusBarControl.setHidden(false);
                             await StatusBarControl.setStyle(
@@ -218,8 +212,7 @@ class _MobileHomeState extends State<MobileHome> {
                             );
                           }
 
-                          await Future.delayed(
-                              const Duration(milliseconds: 200));
+                          await Future.delayed(const Duration(milliseconds: 200));
                           Navigator.of(context).pop();
                           if (tab != index) {
                             setState(() {
@@ -229,11 +222,7 @@ class _MobileHomeState extends State<MobileHome> {
                         },
                         child: Container(
                           decoration: BoxDecoration(
-                            color: index == tab
-                                ? Theme.of(context)
-                                    .primaryColor
-                                    .withOpacity(0.2)
-                                : null,
+                            color: index == tab ? Theme.of(context).primaryColor.withOpacity(0.2) : null,
                             borderRadius: const BorderRadius.only(
                               topRight: Radius.circular(28.0),
                               bottomRight: Radius.circular(28.0),
@@ -260,8 +249,7 @@ class _MobileHomeState extends State<MobileHome> {
                   setState(() => tab = 0);
                   await StatusBarControl.setHidden(true);
                   await StatusBarControl.setStyle(
-                    getStatusBarStyleFromBrightness(
-                        Theme.of(context).brightness),
+                    getStatusBarStyleFromBrightness(Theme.of(context).brightness),
                   );
                   await SystemChrome.setPreferredOrientations(
                     [
@@ -275,8 +263,7 @@ class _MobileHomeState extends State<MobileHome> {
                 changeCurrentTab: (i) => setState(() => tab = i),
               ),
         }[tab]!(),
-        transitionBuilder: (child, animation, secondaryAnimation) =>
-            SharedAxisTransition(
+        transitionBuilder: (child, animation, secondaryAnimation) => SharedAxisTransition(
           child: child,
           animation: animation,
           secondaryAnimation: secondaryAnimation,

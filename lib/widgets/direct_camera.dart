@@ -18,7 +18,7 @@
  */
 
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../l10n/app_localizations.dart';
 
 import 'package:bluecherry_client/api/api.dart';
 import 'package:bluecherry_client/providers/mobile_view_provider.dart';
@@ -59,10 +59,7 @@ class _DirectCameraScreenState extends State<DirectCameraScreen> {
                   const SizedBox(height: 8.0),
                   Text(
                     AppLocalizations.of(context).noServersAdded,
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline5
-                        ?.copyWith(fontSize: 16.0),
+                    style: Theme.of(context).textTheme.headline5?.copyWith(fontSize: 16.0),
                   ),
                 ],
               ),
@@ -73,8 +70,7 @@ class _DirectCameraScreenState extends State<DirectCameraScreen> {
                 onRefresh: () async {
                   for (final server in ServersProvider.instance.servers) {
                     try {
-                      await API.instance.getDevices(
-                          await API.instance.checkServerCredentials(server));
+                      await API.instance.getDevices(await API.instance.checkServerCredentials(server));
                     } catch (exception, stacktrace) {
                       debugPrint(exception.toString());
                       debugPrint(stacktrace.toString());
@@ -89,8 +85,7 @@ class _DirectCameraScreenState extends State<DirectCameraScreen> {
                     return CustomFutureBuilder<bool>(
                       future: (() async {
                         if (server.devices.isEmpty) {
-                          return API.instance.getDevices(await API.instance
-                              .checkServerCredentials(server));
+                          return API.instance.getDevices(await API.instance.checkServerCredentials(server));
                         }
                         return Future.value(true);
                       })(),
@@ -104,10 +99,7 @@ class _DirectCameraScreenState extends State<DirectCameraScreen> {
                                 child: Center(
                                   child: Text(
                                     AppLocalizations.of(context).noDevices,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headline5
-                                        ?.copyWith(fontSize: 16.0),
+                                    style: Theme.of(context).textTheme.headline5?.copyWith(fontSize: 16.0),
                                   ),
                                 ),
                               )
@@ -124,40 +116,24 @@ class _DirectCameraScreenState extends State<DirectCameraScreen> {
                                           leading: CircleAvatar(
                                             child: const Icon(Icons.camera_alt),
                                             backgroundColor: Colors.transparent,
-                                            foregroundColor: Theme.of(context)
-                                                .iconTheme
-                                                .color,
+                                            foregroundColor: Theme.of(context).iconTheme.color,
                                           ),
                                           title: Text(
-                                            server.devices[index].name
-                                                .split(' ')
-                                                .map((e) =>
-                                                    e[0].toUpperCase() +
-                                                    e.substring(1))
-                                                .join(' '),
+                                            server.devices[index].name.split(' ').map((e) => e[0].toUpperCase() + e.substring(1)).join(' '),
                                           ),
                                           subtitle: Text([
-                                            server.devices[index].status
-                                                ? AppLocalizations.of(context)
-                                                    .online
-                                                : AppLocalizations.of(context)
-                                                    .offline,
+                                            server.devices[index].status ? AppLocalizations.of(context).online : AppLocalizations.of(context).offline,
                                             server.devices[index].uri,
                                             '${server.devices[index].resolutionX}x${server.devices[index].resolutionY}',
                                           ].join(' • ')),
                                           onTap: () async {
-                                            final player = MobileViewProvider
-                                                .instance
-                                                .getVideoPlayerController(
-                                                    server.devices[index]);
+                                            final player = MobileViewProvider.instance.getVideoPlayerController(server.devices[index]);
                                             await Navigator.of(context).push(
                                               MaterialPageRoute(
-                                                builder: (context) =>
-                                                    DeviceFullscreenViewer(
+                                                builder: (context) => DeviceFullscreenViewer(
                                                   device: server.devices[index],
                                                   ijkPlayer: player,
-                                                  restoreStatusBarStyleOnDispose:
-                                                      true,
+                                                  restoreStatusBarStyleOnDispose: true,
                                                 ),
                                               ),
                                             );

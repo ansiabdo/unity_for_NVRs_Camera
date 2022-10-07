@@ -21,7 +21,7 @@ import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../l10n/app_localizations.dart';
 
 import 'package:bluecherry_client/providers/server_provider.dart';
 import 'package:bluecherry_client/providers/settings_provider.dart';
@@ -70,9 +70,7 @@ class _SettingsState extends State<Settings> {
             Consumer<ServersProvider>(
               builder: (context, serversProvider, _) => Column(
                 children: [
-                  ...serversProvider.servers
-                      .map((e) => ServerTile(server: e))
-                      .toList(),
+                  ...serversProvider.servers.map((e) => ServerTile(server: e)).toList(),
                   ListTile(
                     leading: CircleAvatar(
                       child: const Icon(Icons.add),
@@ -145,39 +143,34 @@ class _SettingsState extends State<Settings> {
                     iconData: Icons.message,
                     onTap: () async {
                       if (settings.snoozedUntil.isAfter(DateTime.now())) {
-                        settings.snoozedUntil =
-                            SettingsProvider.defaultSnoozedUntil;
+                        settings.snoozedUntil = SettingsProvider.defaultSnoozedUntil;
                       } else {
                         final timeOfDay = await showTimePicker(
                           context: context,
-                          helpText: AppLocalizations.of(context)
-                              .snoozeNotificationsUntil
-                              .toUpperCase(),
+                          helpText: AppLocalizations.of(context).snoozeNotificationsUntil.toUpperCase(),
                           initialTime: TimeOfDay.fromDateTime(DateTime.now()),
                           useRootNavigator: false,
-                          builder: (_, child) =>
-                              Theme.of(context).brightness == Brightness.dark
-                                  ? Theme(
-                                      data: ThemeData.dark().copyWith(
-                                        primaryColor:
-                                            Theme.of(context).primaryColor,
-                                        colorScheme: ColorScheme.fromSwatch(
-                                          primarySwatch: Colors.indigo,
-                                          brightness: Brightness.dark,
-                                        ),
-                                        dialogTheme: const DialogTheme(
-                                          backgroundColor: Colors.black,
-                                        ),
-                                        scaffoldBackgroundColor: Colors.black,
-                                      ),
-                                      child: TimePickerTheme(
-                                        data: const TimePickerThemeData(
-                                          backgroundColor: Color(0xFF191919),
-                                        ),
-                                        child: child!,
-                                      ),
-                                    )
-                                  : child!,
+                          builder: (_, child) => Theme.of(context).brightness == Brightness.dark
+                              ? Theme(
+                                  data: ThemeData.dark().copyWith(
+                                    primaryColor: Theme.of(context).primaryColor,
+                                    colorScheme: ColorScheme.fromSwatch(
+                                      primarySwatch: Colors.indigo,
+                                      brightness: Brightness.dark,
+                                    ),
+                                    dialogTheme: const DialogTheme(
+                                      backgroundColor: Colors.black,
+                                    ),
+                                    scaffoldBackgroundColor: Colors.black,
+                                  ),
+                                  child: TimePickerTheme(
+                                    data: const TimePickerThemeData(
+                                      backgroundColor: Color(0xFF191919),
+                                    ),
+                                    child: child!,
+                                  ),
+                                )
+                              : child!,
                         );
                         if (timeOfDay != null) {
                           settings.snoozedUntil = DateTime(
@@ -195,13 +188,9 @@ class _SettingsState extends State<Settings> {
                     subtitle: settings.snoozedUntil.isAfter(DateTime.now())
                         ? AppLocalizations.of(context).snoozedUntil(
                             [
-                              if (settings.snoozedUntil
-                                      .difference(DateTime.now()) >
-                                  const Duration(hours: 24))
-                                SettingsProvider.instance.dateFormat
-                                    .format(settings.snoozedUntil),
-                              SettingsProvider.instance.timeFormat
-                                  .format(settings.snoozedUntil),
+                              if (settings.snoozedUntil.difference(DateTime.now()) > const Duration(hours: 24))
+                                SettingsProvider.instance.dateFormat.format(settings.snoozedUntil),
+                              SettingsProvider.instance.timeFormat.format(settings.snoozedUntil),
                             ].join(' '),
                           )
                         : AppLocalizations.of(context).notSnoozed,
@@ -216,8 +205,7 @@ class _SettingsState extends State<Settings> {
                         foregroundColor: Theme.of(context).iconTheme.color,
                         child: const Icon(Icons.beenhere_rounded),
                       ),
-                      title: Text(
-                          AppLocalizations.of(context).notificationClickAction),
+                      title: Text(AppLocalizations.of(context).notificationClickAction),
                       textColor: Theme.of(context).textTheme.bodyText1?.color,
                       subtitle: Text(
                         settings.notificationClickAction.str(context),
@@ -262,38 +250,29 @@ class _SettingsState extends State<Settings> {
             SubHeader(AppLocalizations.of(context).dateFormat),
             Consumer<SettingsProvider>(
               builder: (context, settings, _) => Column(
-                children: [
-                  'dd MMMM yyyy',
-                  'EEEE, dd MMMM yyyy',
-                  'EE, dd MMMM yyyy',
-                  'MM/dd/yyyy',
-                  'dd/MM/yyyy',
-                  'MM-dd-yyyy',
-                  'dd-MM-yyyy',
-                  'yyyy-MM-dd'
-                ]
-                    .map(
-                      (e) => ListTile(
-                        onTap: () {
-                          settings.dateFormat = DateFormat(e, 'en_US');
-                        },
-                        trailing: Radio(
-                          value: e,
-                          groupValue: settings.dateFormat.pattern,
-                          onChanged: (value) {
-                            settings.dateFormat = DateFormat(e, 'en_US');
-                          },
-                        ),
-                        title: Padding(
-                          padding: const EdgeInsets.only(left: 8.0),
-                          child: Text(
-                            DateFormat(e, 'en_US')
-                                .format(DateTime.utc(1969, 7, 20, 14, 18, 04)),
+                children:
+                    ['dd MMMM yyyy', 'EEEE, dd MMMM yyyy', 'EE, dd MMMM yyyy', 'MM/dd/yyyy', 'dd/MM/yyyy', 'MM-dd-yyyy', 'dd-MM-yyyy', 'yyyy-MM-dd']
+                        .map(
+                          (e) => ListTile(
+                            onTap: () {
+                              settings.dateFormat = DateFormat(e, 'en_US');
+                            },
+                            trailing: Radio(
+                              value: e,
+                              groupValue: settings.dateFormat.pattern,
+                              onChanged: (value) {
+                                settings.dateFormat = DateFormat(e, 'en_US');
+                              },
+                            ),
+                            title: Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: Text(
+                                DateFormat(e, 'en_US').format(DateTime.utc(1969, 7, 20, 14, 18, 04)),
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
-                    )
-                    .toList(),
+                        )
+                        .toList(),
               ),
             ),
             const Padding(
@@ -325,8 +304,7 @@ class _SettingsState extends State<Settings> {
                         title: Padding(
                           padding: const EdgeInsets.only(left: 8.0),
                           child: Text(
-                            DateFormat(e, 'en_US')
-                                .format(DateTime.utc(1969, 7, 20, 14, 18, 04)),
+                            DateFormat(e, 'en_US').format(DateTime.utc(1969, 7, 20, 14, 18, 04)),
                           ),
                         ),
                       ),
@@ -436,8 +414,7 @@ class _ServerTileState extends State<ServerTile> {
           fetched
               ? [
                   if (widget.server.name != widget.server.ip) widget.server.ip,
-                  AppLocalizations.of(context)
-                      .nDevices(widget.server.devices.length),
+                  AppLocalizations.of(context).nDevices(widget.server.devices.length),
                 ].join(' • ')
               : AppLocalizations.of(context).gettingDevices,
           overflow: TextOverflow.ellipsis,
@@ -453,8 +430,7 @@ class _ServerTileState extends State<ServerTile> {
               builder: (context) => AlertDialog(
                 title: Text(AppLocalizations.of(context).remove),
                 content: Text(
-                  AppLocalizations.of(context)
-                      .removeServerDescription(widget.server.name),
+                  AppLocalizations.of(context).removeServerDescription(widget.server.name),
                   style: Theme.of(context).textTheme.headline4,
                   textAlign: TextAlign.start,
                 ),
@@ -492,9 +468,7 @@ class _ServerTileState extends State<ServerTile> {
 
 extension on NotificationClickAction {
   String str(BuildContext context) => {
-        NotificationClickAction.showFullscreenCamera:
-            AppLocalizations.of(context).showFullscreenCamera,
-        NotificationClickAction.showEventsScreen:
-            AppLocalizations.of(context).showEventsScreen,
+        NotificationClickAction.showFullscreenCamera: AppLocalizations.of(context).showFullscreenCamera,
+        NotificationClickAction.showEventsScreen: AppLocalizations.of(context).showEventsScreen,
       }[this]!;
 }

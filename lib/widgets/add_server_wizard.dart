@@ -21,13 +21,15 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+// import 'l10n/app_localizations.dart';
 
 import 'package:bluecherry_client/api/api.dart';
 import 'package:bluecherry_client/models/server.dart';
 import 'package:bluecherry_client/providers/server_provider.dart';
 import 'package:bluecherry_client/utils/constants.dart';
 import 'package:bluecherry_client/widgets/misc.dart';
+
+import '../l10n/app_localizations.dart';
 
 class AddServerWizard extends StatefulWidget {
   final VoidCallback onFinish;
@@ -78,9 +80,7 @@ class _AddServerWizardState extends State<AddServerWizard> {
                           child: Card(
                             elevation: 4.0,
                             clipBehavior: Clip.antiAlias,
-                            margin: const EdgeInsets.symmetric(
-                                    horizontal: 16.0, vertical: 16.0) +
-                                MediaQuery.of(context).padding,
+                            margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0) + MediaQuery.of(context).padding,
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -89,8 +89,7 @@ class _AddServerWizardState extends State<AddServerWizard> {
                                 Padding(
                                   padding: const EdgeInsets.all(16.0),
                                   child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
                                     children: [
                                       Image.asset(
                                         'assets/images/icon.png',
@@ -100,23 +99,16 @@ class _AddServerWizardState extends State<AddServerWizard> {
                                       ),
                                       const SizedBox(height: 24.0),
                                       Text(
-                                        AppLocalizations.of(context)
-                                            .projectName,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headline1
-                                            ?.copyWith(
+                                        AppLocalizations.of(context).projectName,
+                                        style: Theme.of(context).textTheme.headline1?.copyWith(
                                               fontSize: 36.0,
                                               fontWeight: FontWeight.w600,
                                             ),
                                       ),
                                       const SizedBox(height: 4.0),
                                       Text(
-                                        AppLocalizations.of(context)
-                                            .projectDescription,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headline5,
+                                        AppLocalizations.of(context).projectDescription,
+                                        style: Theme.of(context).textTheme.headline5,
                                       ),
                                       const SizedBox(height: 16.0),
                                       Align(
@@ -128,8 +120,7 @@ class _AddServerWizardState extends State<AddServerWizard> {
                                             children: [
                                               const Spacer(),
                                               MouseRegion(
-                                                cursor:
-                                                    SystemMouseCursors.click,
+                                                cursor: SystemMouseCursors.click,
                                                 child: GestureDetector(
                                                   onTap: () {
                                                     launchUrl(
@@ -137,29 +128,20 @@ class _AddServerWizardState extends State<AddServerWizard> {
                                                         'www.bluecherrydvr.com',
                                                         '/',
                                                       ),
-                                                      mode: LaunchMode
-                                                          .externalApplication,
+                                                      mode: LaunchMode.externalApplication,
                                                     );
                                                   },
                                                   child: Text(
-                                                    AppLocalizations.of(context)
-                                                        .website,
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .headline4
-                                                        ?.copyWith(
-                                                          color:
-                                                              Theme.of(context)
-                                                                  .colorScheme
-                                                                  .primary,
+                                                    AppLocalizations.of(context).website,
+                                                    style: Theme.of(context).textTheme.headline4?.copyWith(
+                                                          color: Theme.of(context).colorScheme.primary,
                                                         ),
                                                   ),
                                                 ),
                                               ),
                                               const SizedBox(width: 16.0),
                                               MouseRegion(
-                                                cursor:
-                                                    SystemMouseCursors.click,
+                                                cursor: SystemMouseCursors.click,
                                                 child: GestureDetector(
                                                   onTap: () {
                                                     launchUrl(
@@ -167,21 +149,13 @@ class _AddServerWizardState extends State<AddServerWizard> {
                                                         'www.bluecherrydvr.com',
                                                         '/product/v3license/',
                                                       ),
-                                                      mode: LaunchMode
-                                                          .externalApplication,
+                                                      mode: LaunchMode.externalApplication,
                                                     );
                                                   },
                                                   child: Text(
-                                                    AppLocalizations.of(context)
-                                                        .purchase,
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .headline4
-                                                        ?.copyWith(
-                                                          color:
-                                                              Theme.of(context)
-                                                                  .colorScheme
-                                                                  .primary,
+                                                    AppLocalizations.of(context).purchase,
+                                                    style: Theme.of(context).textTheme.headline4?.copyWith(
+                                                          color: Theme.of(context).colorScheme.primary,
                                                         ),
                                                   ),
                                                 ),
@@ -193,28 +167,19 @@ class _AddServerWizardState extends State<AddServerWizard> {
                                       const Divider(thickness: 1.0),
                                       const SizedBox(height: 16.0),
                                       Column(
-                                        crossAxisAlignment: Platform.isIOS
-                                            ? CrossAxisAlignment.center
-                                            : CrossAxisAlignment.start,
+                                        crossAxisAlignment: Platform.isIOS ? CrossAxisAlignment.center : CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            AppLocalizations.of(context)
-                                                .welcome,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .headline1
-                                                ?.copyWith(
+                                            AppLocalizations.of(context).welcome,
+                                            style: Theme.of(context).textTheme.headline1?.copyWith(
                                                   fontSize: 20.0,
                                                   fontWeight: FontWeight.w600,
                                                 ),
                                           ),
                                           const SizedBox(height: 8.0),
                                           Text(
-                                            AppLocalizations.of(context)
-                                                .welcomeDescription,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .headline5,
+                                            AppLocalizations.of(context).welcomeDescription,
+                                            style: Theme.of(context).textTheme.headline5,
                                           ),
                                         ],
                                       ),
@@ -223,13 +188,11 @@ class _AddServerWizardState extends State<AddServerWizard> {
                                 ),
                                 const SizedBox(height: 16.0),
                                 Material(
-                                  color:
-                                      Theme.of(context).colorScheme.secondary,
+                                  color: Theme.of(context).colorScheme.secondary,
                                   child: InkWell(
                                     onTap: () {
                                       controller.nextPage(
-                                        duration:
-                                            const Duration(milliseconds: 300),
+                                        duration: const Duration(milliseconds: 300),
                                         curve: Curves.easeInOut,
                                       );
                                     },
@@ -238,9 +201,7 @@ class _AddServerWizardState extends State<AddServerWizard> {
                                       width: double.infinity,
                                       height: 56.0,
                                       child: Text(
-                                        AppLocalizations.of(context)
-                                            .letsGo
-                                            .toUpperCase(),
+                                        AppLocalizations.of(context).letsGo.toUpperCase(),
                                         style: const TextStyle(
                                           color: Colors.white,
                                           fontSize: 16.0,
@@ -262,8 +223,7 @@ class _AddServerWizardState extends State<AddServerWizard> {
                               padding: EdgeInsets.only(
                                 top: MediaQuery.of(context).padding.top,
                               ),
-                              height: kToolbarHeight +
-                                  MediaQuery.of(context).padding.top,
+                              height: kToolbarHeight + MediaQuery.of(context).padding.top,
                               alignment: Alignment.topLeft,
                               child: Row(
                                 children: [
@@ -325,8 +285,7 @@ class ConfigureDVRServerScreen extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<ConfigureDVRServerScreen> createState() =>
-      _ConfigureDVRServerScreenState();
+  State<ConfigureDVRServerScreen> createState() => _ConfigureDVRServerScreenState();
 }
 
 class _ConfigureDVRServerScreenState extends State<ConfigureDVRServerScreen> {
@@ -343,19 +302,14 @@ class _ConfigureDVRServerScreenState extends State<ConfigureDVRServerScreen> {
   bool disableFinishButton = false;
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  String getServerHostname(String text) => (text.startsWith('http')
-          ? (text.split('//')..removeAt(0)).join('//')
-          : text)
-      .split('/')
-      .first;
+  String getServerHostname(String text) => (text.startsWith('http') ? (text.split('//')..removeAt(0)).join('//') : text).split('/').first;
 
   @override
   void initState() {
     super.initState();
     textEditingControllers[0].addListener(() {
       if (!nameTextFieldEverFocused) {
-        textEditingControllers[2].text =
-            getServerHostname(textEditingControllers[0].text);
+        textEditingControllers[2].text = getServerHostname(textEditingControllers[0].text);
       }
     });
   }
@@ -375,9 +329,7 @@ class _ConfigureDVRServerScreenState extends State<ConfigureDVRServerScreen> {
               FocusScope.of(context).unfocus();
             },
           ),
-          backgroundColor: Theme.of(context).brightness == Brightness.light
-              ? Theme.of(context).primaryColor
-              : Theme.of(context).cardColor,
+          backgroundColor: Theme.of(context).brightness == Brightness.light ? Theme.of(context).primaryColor : Theme.of(context).cardColor,
           systemOverlayStyle: const SystemUiOverlayStyle(
             statusBarColor: Colors.white12,
             statusBarIconBrightness: Brightness.light,
@@ -400,10 +352,7 @@ class _ConfigureDVRServerScreenState extends State<ConfigureDVRServerScreen> {
                 AppLocalizations.of(context).configureDescription,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: Theme.of(context)
-                    .textTheme
-                    .headline4
-                    ?.copyWith(color: Colors.white.withOpacity(0.87)),
+                style: Theme.of(context).textTheme.headline4?.copyWith(color: Colors.white.withOpacity(0.87)),
               ),
             ),
           ),
@@ -427,8 +376,7 @@ class _ConfigureDVRServerScreenState extends State<ConfigureDVRServerScreen> {
                             child: TextFormField(
                               validator: (value) {
                                 if (value?.isEmpty ?? true) {
-                                  return AppLocalizations.of(context)
-                                      .errorTextField(
+                                  return AppLocalizations.of(context).errorTextField(
                                     AppLocalizations.of(context).hostname,
                                   );
                                 }
@@ -439,8 +387,7 @@ class _ConfigureDVRServerScreenState extends State<ConfigureDVRServerScreen> {
                               keyboardType: TextInputType.url,
                               style: Theme.of(context).textTheme.headline4,
                               decoration: InputDecoration(
-                                label:
-                                    Text(AppLocalizations.of(context).hostname),
+                                label: Text(AppLocalizations.of(context).hostname),
                                 border: const OutlineInputBorder(),
                               ),
                             ),
@@ -451,8 +398,7 @@ class _ConfigureDVRServerScreenState extends State<ConfigureDVRServerScreen> {
                             child: TextFormField(
                               validator: (value) {
                                 if (value?.isEmpty ?? true) {
-                                  return AppLocalizations.of(context)
-                                      .errorTextField(
+                                  return AppLocalizations.of(context).errorTextField(
                                     AppLocalizations.of(context).port,
                                   );
                                 }
@@ -498,8 +444,7 @@ class _ConfigureDVRServerScreenState extends State<ConfigureDVRServerScreen> {
                             child: TextFormField(
                               validator: (value) {
                                 if (value?.isEmpty ?? true) {
-                                  return AppLocalizations.of(context)
-                                      .errorTextField(
+                                  return AppLocalizations.of(context).errorTextField(
                                     AppLocalizations.of(context).username,
                                   );
                                 }
@@ -508,8 +453,7 @@ class _ConfigureDVRServerScreenState extends State<ConfigureDVRServerScreen> {
                               controller: textEditingControllers[3],
                               style: Theme.of(context).textTheme.headline4,
                               decoration: InputDecoration(
-                                label:
-                                    Text(AppLocalizations.of(context).username),
+                                label: Text(AppLocalizations.of(context).username),
                                 border: const OutlineInputBorder(),
                               ),
                             ),
@@ -519,18 +463,13 @@ class _ConfigureDVRServerScreenState extends State<ConfigureDVRServerScreen> {
                             padding: const EdgeInsets.only(top: 8.0),
                             child: MaterialButton(
                               onPressed: () {
-                                textEditingControllers[3].text =
-                                    kDefaultUsername;
-                                textEditingControllers[4].text =
-                                    kDefaultPassword;
+                                textEditingControllers[3].text = kDefaultUsername;
+                                textEditingControllers[4].text = kDefaultPassword;
                               },
                               child: Text(
-                                AppLocalizations.of(context)
-                                    .useDefault
-                                    .toUpperCase(),
+                                AppLocalizations.of(context).useDefault.toUpperCase(),
                               ),
-                              textColor:
-                                  Theme.of(context).colorScheme.secondary,
+                              textColor: Theme.of(context).colorScheme.secondary,
                             ),
                           ),
                         ],
@@ -541,21 +480,19 @@ class _ConfigureDVRServerScreenState extends State<ConfigureDVRServerScreen> {
                         children: [
                           Expanded(
                             child: TextFormField(
-                              validator: (value) {
-                                if (value?.isEmpty ?? true) {
-                                  return AppLocalizations.of(context)
-                                      .errorTextField(
-                                    AppLocalizations.of(context).password,
-                                  );
-                                }
-                                return null;
-                              },
+                              // validator: (value) {
+                              //   if (value?.isEmpty ?? true) {
+                              //     return AppLocalizations.of(context).errorTextField(
+                              //       AppLocalizations.of(context).password,
+                              //     );
+                              //   }
+                              //   return null;
+                              // },
                               controller: textEditingControllers[4],
                               obscureText: true,
                               style: Theme.of(context).textTheme.headline4,
                               decoration: InputDecoration(
-                                label:
-                                    Text(AppLocalizations.of(context).password),
+                                label: Text(AppLocalizations.of(context).password),
                                 border: const OutlineInputBorder(),
                               ),
                             ),
@@ -623,45 +560,36 @@ class _ConfigureDVRServerScreenState extends State<ConfigureDVRServerScreen> {
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
-                                  AppLocalizations.of(context)
-                                      .skip
-                                      .toUpperCase(),
+                                  AppLocalizations.of(context).skip.toUpperCase(),
                                 ),
                               ),
-                              textColor:
-                                  Theme.of(context).colorScheme.secondary,
+                              textColor: Theme.of(context).colorScheme.secondary,
                             ),
                             MaterialButton(
                               onPressed: disableFinishButton
                                   ? null
                                   : () async {
-                                      if (formKey.currentState?.validate() ??
-                                          false) {
+                                      if (formKey.currentState?.validate() ?? false) {
                                         setState(() {
                                           disableFinishButton = true;
                                         });
-                                        final server = await API.instance
-                                            .checkServerCredentials(
+                                        final server = await API.instance.checkServerCredentials(
                                           Server(
                                             textEditingControllers[2].text,
-                                            getServerHostname(
-                                                textEditingControllers[0].text),
-                                            int.parse(
-                                                textEditingControllers[1].text),
+                                            getServerHostname(textEditingControllers[0].text),
+                                            int.parse(textEditingControllers[1].text),
                                             textEditingControllers[3].text,
                                             textEditingControllers[4].text,
                                             [],
                                             savePassword: savePassword,
-                                            connectAutomaticallyAtStartup:
-                                                connectAutomaticallyAtStartup,
+                                            connectAutomaticallyAtStartup: connectAutomaticallyAtStartup,
                                           ),
                                         );
                                         FocusScope.of(context).unfocus();
-                                        if (server.serverUUID != null &&
-                                            server.cookie != null) {
+                                        // if (server.serverUUID != null && server.cookie != null) {
+                                        if (server.serverUUID != null) {
                                           widget.setServer(server);
-                                          await ServersProvider.instance
-                                              .add(server);
+                                          await ServersProvider.instance.add(server);
                                           widget.controller.nextPage(
                                             duration: const Duration(
                                               milliseconds: 300,
@@ -672,35 +600,21 @@ class _ConfigureDVRServerScreenState extends State<ConfigureDVRServerScreen> {
                                           showDialog(
                                             context: context,
                                             builder: (context) => AlertDialog(
-                                              title: Text(
-                                                  AppLocalizations.of(context)
-                                                      .error),
+                                              title: Text(AppLocalizations.of(context).error),
                                               content: Text(
-                                                AppLocalizations.of(context)
-                                                    .serverNotAddedError(
-                                                        server.name),
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .headline4,
+                                                AppLocalizations.of(context).serverNotAddedError(server.name),
+                                                style: Theme.of(context).textTheme.headline4,
                                               ),
                                               actions: [
                                                 MaterialButton(
-                                                  onPressed:
-                                                      Navigator.of(context)
-                                                          .maybePop,
+                                                  onPressed: Navigator.of(context).maybePop,
                                                   child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            8.0),
+                                                    padding: const EdgeInsets.all(8.0),
                                                     child: Text(
-                                                      AppLocalizations.of(
-                                                              context)
-                                                          .ok,
+                                                      AppLocalizations.of(context).ok,
                                                     ),
                                                   ),
-                                                  textColor: Theme.of(context)
-                                                      .colorScheme
-                                                      .secondary,
+                                                  textColor: Theme.of(context).colorScheme.secondary,
                                                 ),
                                               ],
                                             ),
@@ -714,13 +628,10 @@ class _ConfigureDVRServerScreenState extends State<ConfigureDVRServerScreen> {
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
-                                  AppLocalizations.of(context)
-                                      .finish
-                                      .toUpperCase(),
+                                  AppLocalizations.of(context).finish.toUpperCase(),
                                 ),
                               ),
-                              textColor:
-                                  Theme.of(context).colorScheme.secondary,
+                              textColor: Theme.of(context).colorScheme.secondary,
                             ),
                           ],
                         ),
@@ -785,10 +696,7 @@ class _LetsGoScreenState extends State<LetsGoScreen> {
                   statusBarIconBrightness: Brightness.light,
                   statusBarBrightness: Brightness.dark,
                 ),
-                backgroundColor:
-                    Theme.of(context).brightness == Brightness.light
-                        ? Theme.of(context).primaryColor
-                        : Theme.of(context).cardColor,
+                backgroundColor: Theme.of(context).brightness == Brightness.light ? Theme.of(context).primaryColor : Theme.of(context).cardColor,
                 title: Text(
                   AppLocalizations.of(context).letsGo,
                   style: const TextStyle(
@@ -806,10 +714,7 @@ class _LetsGoScreenState extends State<LetsGoScreen> {
                       AppLocalizations.of(context).letsGoDescription,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline4
-                          ?.copyWith(color: Colors.white.withOpacity(0.87)),
+                      style: Theme.of(context).textTheme.headline4?.copyWith(color: Colors.white.withOpacity(0.87)),
                     ),
                   ),
                 ),
@@ -825,8 +730,7 @@ class _LetsGoScreenState extends State<LetsGoScreen> {
                   Colors.green.withOpacity(0.2),
                   Theme.of(context).cardColor,
                 ),
-                margin:
-                    const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Row(
@@ -845,8 +749,7 @@ class _LetsGoScreenState extends State<LetsGoScreen> {
               ),
             Card(
               elevation: 4.0,
-              margin:
-                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+              margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
